@@ -1,34 +1,134 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **Fullstack Interchain dApp**
 
-## Getting Started
+This project is a full-stack decentralized application (dApp) built with React/Nextjs, Solidity, and Axelar General Message Passing. It enables users to send messages between two blockchain chains.
 
-First, run the development server:
+## **Table of Contents**
+
+- [**Features**](https://github.com/Olanetsoft/fullstack-interchain-dappa#features)
+- [**Installation**](#installation)
+- [**Usage**](#usage)
+- [**Technologies Used**](#technologies-used)
+- [**Contributing**](#contributing)
+- [**License**](#license)
+
+## **Features**
+
+- Send messages between two blockchain chains
+- User-friendly interface with dark mode support
+- Integration with Axelar General Message Passing
+- Real-time response and message status updates
+
+## **Installation**
+
+To install and run this application locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Olanetsoft/fullstack-interchain-dapp.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd fullstack-interchain-dapp
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Navigate to the hardhat directory:
+
+   ```bash
+   cd hardhat
+   ```
+
+5. Set up the environment variables to deploy the smart contracts:
+
+   - Create a `.env` file in the hardhat directory.
+   - Define the following variables in the `.env` file:
+     ```apache
+      PRIVATE_KEY=<Your Wallet Private Key>
+     ```
+     Replace `<Your Wallet Private Key>` with your wallet private key.
+
+6. Compile and Deploy the smart contracts:
+
+   ```bash
+   npx hardhat run scripts/deploy.js --network <network>
+   ```
+
+   Replace `<network>` with the desired network (e.g. `bsc` and `avalancheFujiTestnet` in this case). Copy the contract address once the deployment is complete.
+   
+   > Ensure you update the Axelar gateway and gas service address for Binance and Avalanche respectively in `deploy.js` file under the `scripts` directory and deploy them seperately. You  can find the gateway and gas service address [here](https://docs.axelar.dev/resources/testnet).
+
+7. Set up the environment variables:
+
+   - Create a `.env.local` file in the root directory.
+   - Define the following variables in the `.env.local` file:
+     ```apache
+     NEXT_PUBLIC_BSC_CONTRACT_ADDRESS=<BSC contract address>
+     NEXT_PUBLIC_AVALANCHE_CONTRACT_ADDRESS=<Avalanche contract address>
+     NEXT_PUBLIC_AVALANCHE_RPC_URL=https://avalanche-fuji-c-chain.publicnode.com
+     ```
+     Replace `<BSC contract address>` and `<Avalanche contract address>`, with the respective values.
+
+8. Start the development server:
 
 ```bash
+cd ..
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+9.  Access the application in your browser:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Open your web browser and visit [`http://localhost:3000`](http://localhost:3000) to see the application running.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## **Usage**
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. Connect your wallet:
 
-## Learn More
+   - Click on the "Connect" button to connect your wallet.
+   - Follow the prompts to connect to the desired blockchain network.
 
-To learn more about Next.js, take a look at the following resources:
+2. Sending a message:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   - Enter your message content in the "Send Message" section.
+   - Click the "Send" button to send the message.
+   - A toast notification will appear, indicating that the message is being sent.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. Response:
 
-## Deploy on Vercel
+   - The "Response" section will display the received message once it is successfully delivered.
+   - A "waiting for response..." message will be displayed if the message has not yet been received.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## **Technologies Used**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The following technologies and frameworks were used in this project:
+
+- React
+- Solidity
+- Axelar General Message Passing
+- @rainbow-me/rainbowkit
+- wagmi
+- ethers.js
+- Next.js
+- Toastify
+- CSS (Tailwind CSS)
+
+## **Contributing**
+
+Contributions are welcome! If you find any issues or want to contribute to the project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them with descriptive messages.
+4. Push your changes to your forked repository.
+5. Submit a pull request detailing your changes.
+
+## **License**
+
+This project is licensed under the [**MIT License**](https://chat.openai.com/LICENSE).
