@@ -4,7 +4,7 @@ This project is a full-stack decentralized application (dApp) built with React/N
 
 ## **Table of Contents**
 
-- [**Features**](https://github.com/Olanetsoft/fullstack-interchain-dappa#features)
+- [**Features**](https://github.com/Olanetsoft/fullstack-interchain-dapp#features)
 - [**Installation**](#installation)
 - [**Usage**](#usage)
 - [**Technologies Used**](#technologies-used)
