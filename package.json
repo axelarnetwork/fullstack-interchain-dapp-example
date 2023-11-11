@@ -1,5 +1,5 @@
 {
-  "name": "polygon-workshop-interchain-dapp",
+  "name": "send-interchain-message-dapp",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@axelar-network/axelarjs-sdk": "^0.13.6",
     "@rainbow-me/rainbowkit": "^1.0.1",
     "ethers": "^5.7.2",
     "fs": "^0.0.1-security",

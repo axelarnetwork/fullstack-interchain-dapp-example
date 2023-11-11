@@ -3,7 +3,6 @@ require("dotenv").config({ path: ".env" });
 require("solidity-coverage");
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const MUMBAI_API_KEY = process.env.MUMBAI_API_KEY;
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -22,11 +21,6 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 module.exports = {
   solidity: "0.8.9",
   networks: {
-    mumbai: {
-      url: "https://rpc.ankr.com/polygon_mumbai",
-      chainId: 80001,
-      accounts: [PRIVATE_KEY],
-    },
     bsc: {
       url: "https://data-seed-prebsc-1-s1.binance.org:8545",
       chainId: 97,
@@ -40,8 +34,5 @@ module.exports = {
   },
   mocha: {
     timeout: 10000000000,
-  },
-  etherscan: {
-    apiKey: MUMBAI_API_KEY,
   },
 };

@@ -54,10 +54,6 @@ To install and run this application locally, follow these steps:
       PRIVATE_KEY=<Your Wallet Private Key>
      ```
      Replace `<Your Wallet Private Key>` with your wallet private key.
-   - Run the following command to install the hardhat dependencies:
-     ```bash
-     npm install
-     ```
 
 6. Compile and Deploy the smart contracts:
 
@@ -66,19 +62,19 @@ To install and run this application locally, follow these steps:
    ```
 
    Replace `<network>` with the desired network (e.g. `bsc` and `avalancheFujiTestnet` in this case). Copy the contract address once the deployment is complete.
-
-   > Ensure you update the Axelar gateway and gas service address for Binance and Avalanche respectively in `deploy.js` file under the `scripts` directory and deploy them seperately. You can find the gateway and gas service address [here](https://docs.axelar.dev/resources/testnet).
+   
+   > Ensure you update the Axelar gateway and gas service address for Binance and Avalanche respectively in `deploy.js` file under the `scripts` directory and deploy them seperately. You  can find the gateway and gas service address [here](https://docs.axelar.dev/resources/testnet).
 
 7. Set up the environment variables:
 
    - Create a `.env.local` file in the root directory.
    - Define the following variables in the `.env.local` file:
      ```apache
-     NEXT_PUBLIC_POLYGON_CONTRACT_ADDRESS=<POLYGON contract address>
+     NEXT_PUBLIC_BSC_CONTRACT_ADDRESS=<BSC contract address>
      NEXT_PUBLIC_AVALANCHE_CONTRACT_ADDRESS=<Avalanche contract address>
      NEXT_PUBLIC_AVALANCHE_RPC_URL=https://avalanche-fuji-c-chain.publicnode.com
      ```
-     Replace `<POLYGON contract address>` and `<Avalanche contract address>`, with the respective values.
+     Replace `<BSC contract address>` and `<Avalanche contract address>`, with the respective values.
 
 8. Start the development server:
 
