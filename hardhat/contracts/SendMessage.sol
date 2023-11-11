@@ -31,20 +31,21 @@ contract SendMessage is AxelarExecutable {
         string calldata destinationAddress,
         string calldata value_
     ) external payable {
+        // Checks that the value is not empty
+        require(msg.value > 0, 'Gas payment is required');
+
         // Encodes the new value string into bytes, which can be sent to the Axelar gateway contract
         bytes memory payload = abi.encode(value_);
-        // If the sender of this function call included any native gas, use the gasService to pay for the function call
-        if (msg.value > 0) {
-            gasService.payNativeGasForContractCall{ value: msg.value }(
-                address(this),
-                destinationChain,
-                destinationAddress,
-                payload,
-                msg.sender
-            );
-        }
-        // Calls the Axelar gateway contract with the specified destination chain and address, and sends the payload along with the call
+
+        gasService.payNativeGasForContractCall{ value: msg.value }(
+            address(this),
+            destinationChain,
+            destinationAddress,
+            payload,
+            msg.sender
+        );
         gateway.callContract(destinationChain, destinationAddress, payload);
+
     }
 
     // Handles calls created by setAndSend. Updates this contract's value

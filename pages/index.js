@@ -7,12 +7,19 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 import { ethers } from "ethers";
+import {
+  AxelarQueryAPI,
+  Environment,
+  EvmChain,
+  GasToken,
+} from "@axelar-network/axelarjs-sdk";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import SendMessageContract from "../hardhat/artifacts/contracts/SendMessage.sol/SendMessage.json";
 
-const BSC_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_BSC_CONTRACT_ADDRESS;
+const POLYGON_CONTRACT_ADDRESS =
+  process.env.NEXT_PUBLIC_POLYGON_CONTRACT_ADDRESS;
 const AVALANCHE_CONTRACT_ADDRESS =
   process.env.NEXT_PUBLIC_AVALANCHE_CONTRACT_ADDRESS;
 const AVALANCHE_RPC_URL = process.env.NEXT_PUBLIC_AVALANCHE_RPC_URL;
@@ -25,22 +32,39 @@ export default function Home() {
 
   const [value, setValue] = useState(""); // State variable to hold the value
 
-  const { config } = usePrepareContractWrite({
+  const api = new AxelarQueryAPI({ environment: Environment.TESTNET });
+  const [gasFee, setGasFee] = useState(0);
+
+  // Estimate Gas
+  const gasEstimator = async () => {
+    const gas = await api.estimateGasFee(
+      EvmChain.POLYGON,
+      EvmChain.AVALANCHE,
+      GasToken.MATIC,
+      700000,
+      2
+    );
+    console.log("gas: ", gas);
+    setGasFee(gas);
+  };
+
+  const { config, error } = usePrepareContractWrite();
+
+  const { data: useContractWriteData, write } = useContractWrite({
     // Calling a hook to prepare the contract write configuration
-    address: BSC_CONTRACT_ADDRESS, // Address of the BSC contract
+    address: POLYGON_CONTRACT_ADDRESS, // Address of the POLYGON contract
     abi: SendMessageContract.abi, // ABI (Application Binary Interface) of the contract
     functionName: "sendMessage", // Name of the function to call on the contract
     args: ["Avalanche", AVALANCHE_CONTRACT_ADDRESS, message], // Arguments to pass to the contract function
-    value: ethers.utils.parseEther("0.01"), // Value to send along with the contract call
-  });
-
-  const { data: useContractWriteData, write } = useContractWrite(config); // Calling a hook to get contract write data and the write function
+    value: gasFee, // Value to send along with the contract call
+  }); // Calling a hook to get contract write data and the write function
 
   const { data: useWaitForTransactionData, isSuccess } = useWaitForTransaction({
     // Calling a hook to wait for the transaction to be mined
     hash: useContractWriteData?.hash, // Hash of the transaction obtained from the contract write data
   });
 
+  // Send Message
   const handleSendMessage = () => {
     write(); // Initiating the contract call
 
@@ -81,6 +105,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    gasEstimator();
     readDestinationChainVariables();
     const body = document.querySelector("body");
     darkMode ? body.classList.add("dark") : body.classList.remove("dark");
@@ -96,7 +121,7 @@ export default function Home() {
       : useWaitForTransactionData?.error || useContractWriteData?.error
       ? toast.error("Error sending message")
       : null;
-  }, [darkMode, useContractWriteData, useWaitForTransactionData]);
+  }, [darkMode, useContractWriteData, useWaitForTransactionData, isSuccess]);
 
   return (
     <div className="container mx-auto px-4 flex flex-col min-h-screen">
@@ -145,8 +170,9 @@ export default function Home() {
 
       <main className="flex-grow flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold mb-8 text-center">
-          Fullstack Interchain dApp with{" "}
-          <span className="text-blue-500">Axelar 🔥 </span>
+          Fullstack Interchain dApp on{" "}
+          <span className="text-blue-500">Polygon </span>
+          with <span className="text-blue-500">Axelar 🔥 </span>
         </h1>
         <p className=" mb-8 text-center max-w-3xl text-gray-500">
           An interchain decentralized application using React, Solidity, and
