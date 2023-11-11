@@ -25,7 +25,7 @@ To install and run this application locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Olanetsoft/polygon-workshop-interchain-dapp.git
+   git clone https://github.com/Olanetsoft/fullstack-interchain-dapp.git
    ```
 
 2. Navigate to the project directory:
